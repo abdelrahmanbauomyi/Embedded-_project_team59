@@ -1,18 +1,15 @@
 #include "stdint.h"
 #include "C:\Keil_v5\Labware\inc\tm4c123gh6pm.h"
-void init(void)
-{
+void init(void){
 
 }
-void delay(int x)
-{
-
 void delay(int x){
 int i,j;
 for( i =0 ; i<x ; i++){for( j=0 ; j<x ; i++){}}
 }
-void lcd_command( char command )
-{
+
+
+void lcd_command( char command ){
 	GPIO_PORTA_DATA_R&=0x1F;
 	GPIO_PORTB_DATA_R=command;
 	GPIO_PORTA_DATA_R|=0x80;
@@ -20,8 +17,7 @@ void lcd_command( char command )
 	GPIO_PORTA_DATA_R&=0x1F;
 }
 
-void lcd_data( char data ) 
-{
+void lcd_data( char data ) {
 	GPIO_PORTA_DATA_R&=0x3F;
 	GPIO_PORTA_DATA_R|=0x20;
 	GPIO_PORTB_DATA_R=data;
@@ -29,10 +25,10 @@ void lcd_data( char data )
 	delay(50);
 	GPIO_PORTA_DATA_R&=0x1F;
 }
-void lcd_number_display(int x)
-{
-	
-}
+
+
+
+
 void lcd_display(int distance){
   char word[10] ={'D','i','s','t','a','n','c','e',':',' '}; 
   char c1,c2,c3;
@@ -66,10 +62,13 @@ void lcd_display(int distance){
 	lcd_command(0x06);
 	
 }
+void checkDistance(int distance){
+    if (distance > 100){
+    GPIO_PORTF_DATA_R |= 0X02;
+    }
+}
 int main()
 {
-	init();
-
-		
+	init();		
 	}
 

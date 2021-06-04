@@ -30,7 +30,7 @@ void lcd_data( char data ) {
 	GPIO_PORTB_DATA_R=data;
 	GPIO_PORTA_DATA_R|=0x80; //E=1
 	delay(50);
-	GPIO_PORTA_DATA_R&=0x1F; //Rs=1 ;Rw,E =0
+	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
 }
 
 

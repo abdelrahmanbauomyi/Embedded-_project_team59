@@ -1,11 +1,3 @@
-#include <C:\Keil\ARM\INC\TI\TM4C123\tm4c123gh6pm.h>
-#include "C:\Keil\ARM\RV31\LIB\Luminary\inc\hw_ints.h"
-#include "C:\Keil\ARM\RV31\LIB\Luminary\inc\hw_types.h"
-#include <C:\Keil\ARM\ARMCC\include\stdint.h>
-#include <C:\Keil\ARM\ARMCC\include\stdbool.h>
-#include <C:\Keil\ARM\ARMCC\include\stdio.h>
-#include <C:\Keil\ARM\ARMCC\include\stdlib.h>
-
 #include "stdint.h"
 #include "math.h"
 #include "C:\Keil_v5\Labware\inc\tm4c123gh6pm.h"
@@ -15,31 +7,26 @@
 #define display_on 0x0F
 #define increment_cursor 0x06
 
-// Intialization of Port B
 
-#define SYSCTL_RCGCGPIO_R                     (*((volatile unsigned long *)0x400FE608))
-#define SYSCTL_PRGPIO_R                          (*((volatile unsigned long *)0x400FEA08))
-#define GPIO_PORTB_PCTL_R                    (*((volatile unsigned long *)0x4000552C))
-#define GPIO_PORTB_AFSEL_R                  (*((volatile unsigned long *)0x40005420))
-#define GPIO_PORTB_DEN_R                     (*((volatile unsigned long *)0x4000551C))
-#define GPIO_PORTB_AMSEL_R                 (*((volatile unsigned long *)0x40005528))
-#define GPIO_PORTB_DIR_R                       (*((volatile unsigned long *)0x40005400))
-void SystemInit ( ) { };
-
-void PORTB_init(void) {
-SYSCTL_RCGCGPIO_R |= 0x02; //Activate port B
-while( (SYSCTL_PRGPIO_R&0x02)==0)  { };
+void init(void){
+SYSCTL_RCGCGPIO_R |= 0x03; //Activate port A,B
+while( (SYSCTL_PRGPIO_R&0x03)==0)  { };
 GPIO_PORTB_AMSEL_R &= ~0xFF;
 GPIO_PORTB_AFSEL_R &= ~0xFF;
 GPIO_PORTB_DEN_R |= 0xFF;
 GPIO_PORTB_PCTL_R &= ~0xFFFFFFFF;
 GPIO_PORTB_DIR_R |= 0XFF;
+
+
+GPIO_PORTA_AMSEL_R &= ~0xFF;
+GPIO_PORTA_AFSEL_R &= ~0xFF;
+GPIO_PORTA_DEN_R |= 0xFF;
+GPIO_PORTA_PCTL_R &= ~0xFFFFFFFF;
+GPIO_PORTA_DIR_R |= 0XFF;
 }
 
 
-void init(void){
 
-}
 void delay(int x){
 int i,j;
 for( i =0 ; i<x ; i++){for( j=0 ; j<x ; i++){}}

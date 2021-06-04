@@ -1,4 +1,5 @@
 #include "stdint.h"
+#include "math.h"
 #include "C:\Keil_v5\Labware\inc\tm4c123gh6pm.h"
 void init(void){
 
@@ -35,9 +36,9 @@ void lcd_display(int distance){
   unsigned int i;
   int x1 ;
 	
-	
+  // getting distance devided into 3 integers and casting them into char	
   x1= distance/100;
-  c1 = 48+x1;
+  c1 = 48+x1; // 48 is the ascii code of zero
   distance = distance - x1 * 100;
   x1 = distance/10; 
   c2 = 48 + x1;

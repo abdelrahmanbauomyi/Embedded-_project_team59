@@ -17,20 +17,20 @@ for( i =0 ; i<x ; i++){for( j=0 ; j<x ; i++){}}
 
 
 void lcd_command( char command ){
-	GPIO_PORTA_DATA_R&=0x1F;
+	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
 	GPIO_PORTB_DATA_R=command;
-	GPIO_PORTA_DATA_R|=0x80;
+	GPIO_PORTA_DATA_R|=0x80; //E =1
 	delay(50);
-	GPIO_PORTA_DATA_R&=0x1F;
+	GPIO_PORTA_DATA_R&=0x1F;//Rs,Rw,E =0
 }
 
 void lcd_data( char data ) {
-	GPIO_PORTA_DATA_R&=0x3F;
-	GPIO_PORTA_DATA_R|=0x20;
+	GPIO_PORTA_DATA_R&=0x3F; //Rw,E =0
+	GPIO_PORTA_DATA_R|=0x20;//Rs=1 
 	GPIO_PORTB_DATA_R=data;
-	GPIO_PORTA_DATA_R|=0x80;
+	GPIO_PORTA_DATA_R|=0x80; //E=1
 	delay(50);
-	GPIO_PORTA_DATA_R&=0x1F;
+	GPIO_PORTA_DATA_R&=0x1F; //Rs=1 ;Rw,E =0
 }
 
 
@@ -73,6 +73,7 @@ void checkDistance(int distance){
     if (distance > 100){
     GPIO_PORTF_DATA_R |= 0X02;
     }
+		else GPIO_PORTF_DATA_R=0x00;
 }
 int main()
 {

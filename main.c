@@ -1,5 +1,11 @@
 #include "stdint.h"
 #include "C:\Keil_v5\Labware\inc\tm4c123gh6pm.h"
+#define wake_up 0x30
+#define eight_bits_data 0x38
+#define clear 0x01
+#define display_on 0x0F
+#define increment_cursor 0x06
+
 void init(void){
 
 }
@@ -29,7 +35,7 @@ void lcd_data( char data ) {
 
 
 
-void lcd_display(int distance){
+void lcd_display_distance(int distance){
   char word[10] ={'D','i','s','t','a','n','c','e',':',' '}; 
   char c1,c2,c3;
   unsigned int i;
@@ -45,21 +51,21 @@ void lcd_display(int distance){
   c3 = 48+distance;
 	
 	
-	lcd_command(0x30);
-	lcd_command(0x38);
-	lcd_command(0x01);
-	lcd_command(0x0F);
+	lcd_command(wake_up);
+	lcd_command(eight_bits_data);
+	lcd_command(clear);
+	lcd_command(display_on);
 	
 	for (i=0;i<10; i++){
 	lcd_data(word[i]);
-	lcd_command(0x06);
+	lcd_command(increment_cursor);
 	}
 	lcd_data(c1);
-	lcd_command(0x06);
+	lcd_command(increment_cursor);
 	lcd_data(c2);
-	lcd_command(0x06);
+	lcd_command(increment_cursor);
 	lcd_data(c3);
-	lcd_command(0x06);
+	lcd_command(increment_cursor);
 	
 }
 void checkDistance(int distance){

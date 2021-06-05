@@ -92,7 +92,7 @@ double rad(double z)
     return z* 3.14159265359 / 180;
     }
 		//Distance function using cosine laws of spheres
-double distanceCalc(double x1,double y1,double x2,double y2)
+int distanceCalc(double x1,double y1,double x2,double y2)
 {
     double W;
     double sdy;

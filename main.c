@@ -86,6 +86,40 @@ void lcd_display_distance(int distance){
 	lcd_command(increment_cursor);
 	
 }
+// Function to convert degrees into radians
+double rad(double z)
+    {
+    return z* 3.14159265359 / 180;
+    }
+		//Distance function using cosine laws of spheres
+double distanceCalc(double x1,double y1,double x2,double y2)
+{
+    double W;
+    double sdy;
+    double cdy;
+    double sx1;
+    double cx1;
+    double sx2;
+    double cx2;
+    double V;
+
+    W=rad(y1-y2);
+    sdy = sin(W);
+    cdy = cos(W);
+    x1= rad(x1);
+    x2 = rad(x2);
+    sx1 = sin(x1);
+    cx1 = cos(x1);
+    sx2 = sin(x2);
+    cx2 = cos(x2);
+    W= (cx1 * sx2) - (sx1 * cx2 * cdy);
+    W= (W* W);
+    W+= (cx2 * sdy) * (cx2 * sdy);
+    W= sqrt(W);
+    V= (sx1 * sx2) + (cx1 * cx2 * cdy);
+    W= atan2(W,V);
+    return W* 6372795;
+}
 void checkDistance(int distance){
     if (distance > 100){
     GPIO_PORTF_DATA_R |= 0X02;

@@ -41,26 +41,27 @@ GPIO_PORTF_PUR_R=0x11;
 
 
 
-void delay(int x){
+void delay(int x) //delay for x milliseconds.
+{
 int i,j;
-for( i =0 ; i<x ; i++){for( j=0 ; j<x ; i++){}}
+for( i =0 ; i<x ; i++){for( j=0 ; j<3180 ; i++){}}
 }
 
 
-void lcd_command( char command ){
+void lcd_command( unsigned char command ){
 	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
 	GPIO_PORTB_DATA_R=command;
 	GPIO_PORTA_DATA_R|=0x80; //E =1
-	delay(50);
+	delay(2);
 	GPIO_PORTA_DATA_R&=0x1F;//Rs,Rw,E =0
 }
 
-void lcd_data( char data ) {
+void lcd_data( unsigned char data ) {
 	GPIO_PORTA_DATA_R&=0x3F; //Rw,E =0
 	GPIO_PORTA_DATA_R|=0x20;//Rs=1 
 	GPIO_PORTB_DATA_R=data;
 	GPIO_PORTA_DATA_R|=0x80; //E=1
-	delay(50);
+	delay(2);
 	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
 }
 
@@ -87,7 +88,8 @@ void lcd_display_distance(int distance){
 	lcd_command(eight_bits_data);
 	lcd_command(clear);
 	lcd_command(display_on);
-	
+	lcd_command(0x80);
+	delay(500);
 	for (i=0;i<10; i++){
 	lcd_data(word[i]);
 	lcd_command(increment_cursor);
@@ -98,7 +100,7 @@ void lcd_display_distance(int distance){
 	lcd_command(increment_cursor);
 	lcd_data(c3);
 	lcd_command(increment_cursor);
-	
+	delay(500);
 }
 // Function to convert degrees into radians
 double rad(double z)
@@ -135,13 +137,15 @@ int distanceCalc(double x1,double y1,double x2,double y2)
     return W* 6372795;
 }
 void checkDistance(int distance){
-    if (distance > 100){
+    if (distance >= 100){
     GPIO_PORTF_DATA_R |= 0X02;
     }
 		else GPIO_PORTF_DATA_R=0x00;
 }
 int main()
 {
-	init();		
+	init();
+	lcd_display_distance(100);
+	checkDistance(100);
 	}
 

@@ -52,8 +52,9 @@ void lcd_command( unsigned char command ){
 	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
 	GPIO_PORTB_DATA_R=command;
 	GPIO_PORTA_DATA_R|=0x80; //E =1
-	delay(2);
+	delay(0);
 	GPIO_PORTA_DATA_R&=0x1F;//Rs,Rw,E =0
+	delay(2);
 }
 
 void lcd_data( unsigned char data ) {
@@ -61,8 +62,9 @@ void lcd_data( unsigned char data ) {
 	GPIO_PORTA_DATA_R|=0x20;//Rs=1 
 	GPIO_PORTB_DATA_R=data;
 	GPIO_PORTA_DATA_R|=0x80; //E=1
-	delay(2);
+	delay(0);
 	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
+	delay(2);
 }
 
 
@@ -146,6 +148,5 @@ int main()
 {
 	init();
 	lcd_display_distance(100);
-	checkDistance(100);
 	}
 

@@ -146,7 +146,9 @@ void checkDistance(int distance){
 }
 int main()
 {
+	int distance = 85; // for testing
 	init();
-	lcd_display_distance(100);
+	lcd_display_distance(distance);
+	checkDistance(distance);
 	}
 

@@ -39,7 +39,20 @@ GPIO_PORTF_PUR_R=0x11;
 
 }
 
+void UART_init(void){
+	SYSCTL_RCGCGPIO_R |= 0x00000004;
+	SYSCTL_RCGCUART_R |= 0x00000002;
+	UART1_CTL_R &= ~ 0x00000001;
+	UART1_IBRD_R = 520;       //INT(80,000,000/(16*9600))
+	UART1_FBRD_R = 53;        //ROUND DOWN (0.83333333*64)
+	UART1_LCRH_R &=  0x00000070;
+	UART1_CTL_R |=  0x00000001;
+	GPIO_PORTC_DEN_R |= 0x30;
+	GPIO_PORTC_AFSEL_R |= 0x30;
+	GPIO_PORTC_PCTL_R = (GPIO_PORTC_PCTL_R&0xFF00FFFF)+0x00220000;
+	GPIO_PORTC_AMSEL_R &= ~0x30;
 
+}
 
 void delay(int x) //delay for x milliseconds.
 {
@@ -148,6 +161,7 @@ int main()
 {
 	int distance = 85; // for testing
 	init();
+	UART_init();
 	while(1){
 	lcd_display_distance(distance);
 	checkDistance(distance);

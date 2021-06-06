@@ -139,7 +139,7 @@ int distanceCalc(double x1,double y1,double x2,double y2)
     return W* 6372795;
 }
 void checkDistance(int distance){
-    if (distance >= 100){
+    if (distance > 100){
     GPIO_PORTF_DATA_R |= 0X02;
     }
 		else GPIO_PORTF_DATA_R=0x00;
@@ -148,7 +148,10 @@ int main()
 {
 	int distance = 85; // for testing
 	init();
+	while(1){
 	lcd_display_distance(distance);
 	checkDistance(distance);
+	distnace++;
+	}
 	}
 

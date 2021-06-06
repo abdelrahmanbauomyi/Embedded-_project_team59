@@ -151,7 +151,7 @@ int main()
 	while(1){
 	lcd_display_distance(distance);
 	checkDistance(distance);
-	distnace++;
+	distance++;
 	}
 	}
 

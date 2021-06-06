@@ -12,8 +12,8 @@ void init(void){
 SYSCTL_RCGCGPIO_R |= 0x23; //Activate port A,B,F
 while(!(SYSCTL_PRGPIO_R&0x23));
 //init port A
-GPIO_PORTB_LOCK_R=0x4C4F434B;
-GPIO_PORTB_CR_R =0xFF;
+GPIO_PORTA_LOCK_R=0x4C4F434B;
+GPIO_PORTA_CR_R =0xFF;
 GPIO_PORTA_AMSEL_R &=~ 0xFF;
 GPIO_PORTA_AFSEL_R &=~ 0xE0;
 GPIO_PORTA_DEN_R |= 0xE0;
@@ -44,7 +44,7 @@ GPIO_PORTF_PUR_R=0x11;
 void delay(int x) //delay for x milliseconds.
 {
 int i,j;
-for( i =0 ; i<x ; i++){for( j=0 ; j<3180 ; i++){}}
+for( i =0 ; i<x ; i++){for( j=0 ; j<3180 ; j++){}}
 }
 
 

@@ -53,6 +53,15 @@ void UART_init(void){
 	GPIO_PORTC_AMSEL_R &= ~0x30;
 
 }
+uint8_t UART_read(void){
+	while((UART1_FR_R&0x10) != 0);
+	 return ((uint8_t)UART1_DR_R &0xFF);
+ }
+ 
+ void UART_write(uint8_t data){
+ while ((UART1_FR_R &0x20) !=0);
+	 UART1_DR_R = data;
+ }
 
 void delay(int x) //delay for x milliseconds.
 {

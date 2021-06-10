@@ -60,7 +60,7 @@ uint8_t available(){
 
 
 char UART_read(void){
-	while(!available()){};
+	while(!available()){}
 	 return (UART1_DR_R &0xFF);
  }
  

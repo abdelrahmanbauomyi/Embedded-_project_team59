@@ -1,6 +1,6 @@
 #include "stdint.h"
 #include "math.h"
-#include "C:\Keil_v5\Labware\inc\tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #define wake_up 0x30
 #define eight_bits_data 0x38
 #define clear 0x01
@@ -46,20 +46,29 @@ void UART_init(void){
 	UART1_IBRD_R = 104;       //INT(16,000,000/(16*9600))
 	UART1_FBRD_R = 11;        //ROUND (0.1666667*64)
 	UART1_LCRH_R &=  0x00000070;
-	UART1_CTL_R |=  0x00000001;
+	UART1_CTL_R |=  0x00000301;
 	GPIO_PORTC_DEN_R |= 0x30;
 	GPIO_PORTC_AFSEL_R |= 0x30;
 	GPIO_PORTC_PCTL_R = (GPIO_PORTC_PCTL_R&0xFF00FFFF)+0x00220000;
 	GPIO_PORTC_AMSEL_R &= ~0x30;
 
 }
+
+
+// check if data available to be recieved 
+uint8_t available(){
+    return ((UART0_FR_R & UART_FR_RXFE)== UART_FR_RXFE)?0:1;
+}
+
+
+
 uint8_t UART_read(void){
-	while((UART1_FR_R&0x10) != 0);
+	while(!available()){};
 	 return ((uint8_t)UART1_DR_R &0xFF);
  }
  
  void UART_write(uint8_t data){
- while ((UART1_FR_R &0x20) !=0);
+ while ((UART1_FR_R & UART_FR_TXFF) !=0);
 	 UART1_DR_R = data;
  }
 
@@ -88,6 +97,44 @@ void lcd_data( unsigned char data ) {
 	GPIO_PORTA_DATA_R&=0x1F; //Rs,Rw,E =0
 	delay(2);
 }
+
+
+//       putting the wanted data in an array 
+//       $GPGLL,lat,dir,long,dir,unwanted data
+void gps(char *str){
+char c;
+int i=0;
+    c = UART_read();
+    if(c == '$'){
+        c = UART_read();
+        if (c == 'G'){
+            c = UART_read();
+            if (c == 'P'){
+                c = UART_read();
+                if (c == 'G'){
+                    c = UART_read();
+                    if (c == 'L'){
+                        c = UART_read();
+                        if (c == 'L'){
+                            c = UART_read();
+                            if (c == ','){
+                                while (1){
+                                c = UART_read();
+                                if (c == 'E' || c == 'W'){break;}
+                                str[i]=c;
+                                i++
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 
 
 

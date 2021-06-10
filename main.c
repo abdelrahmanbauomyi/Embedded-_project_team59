@@ -62,9 +62,9 @@ uint8_t available(){
 
 
 
-uint8_t UART_read(void){
+char UART_read(void){
 	while(!available()){};
-	 return ((uint8_t)UART1_DR_R &0xFF);
+	 return (UART1_DR_R &0xFF);
  }
  
  void UART_write(uint8_t data){

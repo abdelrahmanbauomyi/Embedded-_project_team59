@@ -119,7 +119,7 @@ int i=0;
                                 c = UART_read();
                                 if (c == 'E' || c == 'W'){break;}
                                 str[i]=c;
-                                i++
+                                i++;
                                 }
                             }
                         }

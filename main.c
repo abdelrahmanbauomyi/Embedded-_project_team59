@@ -220,5 +220,43 @@ int main()
 	checkDistance(distance);
 	distance++;
 	}
+    /*
+    code to extract longtitude and attitude from the uart array
+    char str[] = {'3','0','0','6','.','3','4','2','3','2','N','0','3','1','1','8','.','5','4','2','9','6',','};
+  double deg=0, degm=10,min=0 ,minm=10,sec=0,secm=10000;
+  double deg2=0,degm2=10,min2=0,minm2=10,sec2=0,secm2=10000;
+  for (int i=0; i<23;i++){
+     if (i < 2){
+      deg += (str[i] - '0') * degm;
+       degm=degm/10;
+     }
+     else if(i>=2 && i<4) {
+         min += (str[i] - '0') * minm;
+         minm = minm/10;
+     }
+     else if (i>=5 && i<10){
+         sec += (str[i] - '0') * secm;
+         secm = secm/10;
+     }
+     else if (i>=12 && i < 14){
+      deg2 += (str[i] - '0') * degm2;
+       degm2=degm2/10;
+     }
+     else if(i>=14 && i<16) {
+         min2 += (str[i] - '0') * minm2;
+         minm2 = minm2/10;
+     }
+     else if (i>16 && i<22){
+         sec2 += (str[i] - '0') * secm2;
+         secm2 = secm2/10;
+     }
+     
+  }
+  double seconds = (double)sec /1000;
+  double seconds2 = (double)sec2 /1000;
+  
+  double lon = deg + (min/60) + (seconds/3600);
+  double lat = deg2 + (min2/60) + (seconds2/3600);
+    */
 	}
 

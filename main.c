@@ -154,7 +154,7 @@ double getLongitude(char *str){
 }
 
 double getlatitude(char *str){
-    int i
+    int i;
     double deg2=0,degm2=10,min2=0,minm2=10,sec2=0,secm2=10000,seconds2;
     for ( i=12; i<22;i++){
       if (i>=12 && i < 14){
@@ -171,7 +171,7 @@ double getlatitude(char *str){
      }
      
   }
-    double seconds2 = (double)sec2 /1000;
+    seconds2 = (double)sec2 /1000;
     return deg2 + (min2/60) + (seconds2/3600);
 
 }
@@ -257,7 +257,6 @@ int main()
 {
 	int distance = 85; // for testing
 	init();
-	UART_init();
 	while(1){
 	lcd_display_distance(distance);
 	checkDistance(distance);

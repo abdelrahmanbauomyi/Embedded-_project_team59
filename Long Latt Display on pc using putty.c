@@ -107,6 +107,9 @@ double getlatitude(char* str) {
 
 
 int main(){
+UART0_Init();
+UART1_Init();
+while (1){
 		char lat[10]="";
 		char lon[10]="";
 		char inputstring[] = " " ;
@@ -115,8 +118,7 @@ int main(){
 		char space=' ';
 		char lonw[]={'l','o','n','=',' '};
 		double lng,latt;
-		UART0_Init();
-		UART1_Init();
+		
 		
   
 	
@@ -150,7 +152,7 @@ int main(){
 	if(inputstring[i+36]==','){i=10;}
 	}}
 	
-  while (1){
+  
 		
 		for(i=0;i<=sizeof(latw);i++){ 
 		UART0_write(latw[i]); 

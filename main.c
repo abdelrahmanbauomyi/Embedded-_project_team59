@@ -255,13 +255,28 @@ void checkDistance(int distance){
 }
 int main()
 {
-	int distance = 85; // for testing
-	init();
+	double distance=0;
+	char str[30];
+	double x1,x2,y1,y2;
+		init();
+
+		lcd_display_distance(33);
+
+	gps(str);
+	x1=getLongitude(str);
+	y1=getlatitude(str);
+	delay(1000);
+	lcd_display_distance((int)distance);
 	while(1){
-	lcd_display_distance(distance);
-	checkDistance(distance);
-	distance++;
+		gps(str);
+		x2=getLongitude(str);
+		y2=getlatitude(str);
+		distance+=distanceCalc(x1,y1,x2,y2);
+		delay(1000);
+		x1=x2;
+		y1=y2;
+		lcd_display_distance((int)distance);
+		checkDistance(distance);
 	}
 
 	}
-

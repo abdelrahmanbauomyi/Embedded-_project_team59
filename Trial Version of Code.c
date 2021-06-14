@@ -295,6 +295,7 @@ while (1){
 	// getting distance devided into 3 characters and display them on the screen
 	
 display_distance((int)distance);
+checkDistance((int) distance);
 UART0_write('\n');
 	
 	

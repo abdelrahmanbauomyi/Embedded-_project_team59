@@ -121,7 +121,50 @@ void display_distance(int distance){
 }
 
 
+/*
+if atof built in function didn't work, we will use this full function instead 
+double atof(const char *s)
+{
 
+        double a = 0.0;
+        int e = 0;
+        int c;
+        while ((c = s++) != '\0' && isdigit(c)) {
+            a = a10.0 + (c - '0');
+        }
+        if (c == '.') {
+            while ((c = s++) != '\0' && isdigit(c)) {
+                a = a10.0 + (c - '0');
+                e = e-1;
+            }
+        }
+        if (c == 'e' || c == 'E') {
+            int sign = 1;
+            int i = 0;
+            c = *s++;
+            if (c == '+')
+                c = *s++;
+            else if (c == '-') {
+                c = s++;
+                sign = -1;
+            }
+            while (isdigit(c)) {
+                i = i10 + (c - '0');
+                c = s++;
+            }
+            e += isign;
+        }
+        while (e > 0) {
+            a *= 10.0;
+            e--;
+        }
+        while (e < 0) {
+            a *= 0.1;
+            e++;
+        }
+        return a;
+}
+*/
 
 
 int main(){
@@ -230,7 +273,7 @@ while (1){
 	}
 	lng2 = atof (lon);
 	latt2 = atof(lat);
-	distance += distanceCalc(lng1,latt1,lng2,latt2);
+	distance += distanceCalc(lng1,latt1,lng2,latt2); // not accurate enough, still needs some modifications, we will modify it if it is working properly 
 	lng1=lng2;
 	latt1=latt2;
 	/*

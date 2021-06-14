@@ -12,9 +12,18 @@ void UART0_Init(void){
     //set buad rate devider
     UART0_IBRD_R = 104;
     UART0_FBRD_R = 11;
-		UART0_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
+	UART0_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
     UART0_CTL_R |= (UART_CTL_UARTEN | UART_CTL_RXE | UART_CTL_TXE);
-
+    // port f init 
+	GPIO_PORTF_LOCK_R=0x4C4F434B;
+    GPIO_PORTF_CR_R =0x1F;
+    GPIO_PORTF_AFSEL_R=0;
+    GPIO_PORTF_PCTL_R=0;
+    GPIO_PORTF_AMSEL_R=0;
+    GPIO_PORTF_DIR_R=0x0E;
+    GPIO_PORTF_DEN_R=0x1F;
+    GPIO_PORTF_PUR_R=0x11;
+	// port a init
     GPIO_PORTA_AFSEL_R |= 0x03;
     GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & ~0xFF) | (GPIO_PCTL_PA0_U0RX | GPIO_PCTL_PA1_U0TX);
     GPIO_PORTA_DEN_R |= 0x03;
@@ -132,6 +141,12 @@ int x;
 	diff = diff*100;
 	diff = diff/60;
 	return (x+diff);
+}
+void checkDistance(int distance){
+    if (distance >= 100){
+    GPIO_PORTF_DATA_R |= 0X02;
+    }
+		else GPIO_PORTF_DATA_R=0x00;
 }
 
 

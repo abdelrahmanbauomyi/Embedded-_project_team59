@@ -129,9 +129,9 @@ int main(){
 		char lon[10]="";
 		char inputstring[] = " " ;
 		int i=0;
-		char latw[]={'l','a','t','=',' '};
+		//char latw[]={'l','a','t','=',' '};
 		char space=' ';
-		char lonw[]={'l','o','n','=',' '};
+		//char lonw[]={'l','o','n','=',' '};
 		double lng1,latt1,lng2,latt2,distance=0;
 		
 UART0_Init();

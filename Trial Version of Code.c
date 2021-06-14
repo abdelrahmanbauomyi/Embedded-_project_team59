@@ -180,6 +180,8 @@ UART1_Init();
 	lng1 = atof (lon);
 	latt1 = atof(lat);
 while (1){
+    	delay(800);
+
 	
 		i=0;
 		
@@ -255,7 +257,6 @@ while (1){
 	display_distance((int) distance);
 	UART0_write('\n');
 	
-	delay(5000);
 	
 	}
 
